@@ -13,7 +13,7 @@ urlpatterns = [
     path('contact/<int:contact_id>/delete/', views.delete, name='delete'),  #delete
 
     #User
-    path('user/register/', views.register, name='register'),  #Create
+    path('user/create/', views.register, name='register'),  #Create
 
 ]
     
