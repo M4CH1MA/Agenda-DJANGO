@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from contact.forms import RegisterForm, RegisterUpdateForm
 from django.contrib import messages, auth
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     form = RegisterForm()
@@ -34,14 +35,17 @@ def login_view(request):
         #Caso nao logue    
         messages.error(request, 'Login invalido')
     
-    return redirect('user:update')
+    return render(request, 'contact/login.html', {'form':form})
 
-
+#Logout 
+@login_required(login_url='contact:login')
 def logout_view(request):
     auth.logout(request)
 
     return redirect('contact:login')
 
+#Atualizacao de usuario
+@login_required(login_url='contact:login')
 def user_update(request):
     form = RegisterUpdateForm(instance=request.user)
 
